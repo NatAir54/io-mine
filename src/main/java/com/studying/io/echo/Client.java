@@ -1,4 +1,4 @@
-package com.studying.io.echo_lesson13;
+package com.studying.io.echo;
 
 import java.io.*;
 import java.net.Socket;

@@ -1,7 +1,7 @@
-package com.studying.io.orm_lesson5;
+package com.studying.io.orm;
 
-import com.studying.io.orm_lesson5.annotation.Column;
-import com.studying.io.orm_lesson5.annotation.Table;
+import com.studying.io.orm.annotation.Column;
+import com.studying.io.orm.annotation.Table;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;

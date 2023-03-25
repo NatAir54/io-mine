@@ -1,6 +1,6 @@
-package com.studying.io.orm_lesson5;
+package com.studying.io.orm;
 
-import com.studying.io.orm_lesson5.entity.Person;
+import com.studying.io.orm.entity.Person;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

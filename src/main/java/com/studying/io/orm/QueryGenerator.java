@@ -1,4 +1,4 @@
-package com.studying.io.orm_lesson5;
+package com.studying.io.orm;
 
 import java.io.Serializable;
 
