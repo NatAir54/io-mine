@@ -87,12 +87,13 @@ public class FileManager {
 
 
     private static void copyFile(File fileToCopy, File to) throws IOException {
-        int fileLength = (int) fileToCopy.length();
-        byte[] content = new byte[fileLength];
-        try (InputStream inputStream = new FileInputStream(fileToCopy);
-             OutputStream outputStream = new FileOutputStream(to)) {
-            inputStream.read(content);
-            outputStream.write(content);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileToCopy)));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(to)))) {
+             int c;
+             while ((c = br.read()) != -1) {
+                  bw.write((char) c);
+             }
+             bw.flush();
         }
     }
 

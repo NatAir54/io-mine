@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 
 public interface FileAnalyzer {
     Pattern SENTENCE_PATTERN = Pattern.compile("(?<=[.!?])");
-    String FILE_NAME = "src/test/resources/DuckBook.txt";
 
-    FileStatistics analyze(String word) throws IOException;
+
+    FileStatistics analyze(String pathToFile, String word) throws IOException;
 
     String readContent(String path) throws IOException;
 

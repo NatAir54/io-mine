@@ -1,14 +1,23 @@
 package com.studying.io.file.fileanalyzer;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
-import static com.studying.io.file.fileanalyzer.FileAnalyzer.FILE_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FileAnalyzerUTest {
-    BasicFileAnalyzer fileAnalyzer = new BasicFileAnalyzer(FILE_NAME);
+public abstract class FileAnalyzerTest {
+    private FileAnalyzer fileAnalyzer;
+
+
+    @BeforeEach
+    public void before() {
+        fileAnalyzer = getFileAnalyzer();
+    }
+
+    protected abstract FileAnalyzer getFileAnalyzer();
 
     @DisplayName("test split String into sentences with separators (.!&)")
     @Test
@@ -57,6 +66,4 @@ public class FileAnalyzerUTest {
         List<String> filteredSentences = fileAnalyzer.filter(splitSentences, "duck");
         assertEquals(3, fileAnalyzer.countWord(filteredSentences, "duck"));
     }
-
 }
-

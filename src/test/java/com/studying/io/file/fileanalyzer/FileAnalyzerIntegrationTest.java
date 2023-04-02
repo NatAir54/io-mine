@@ -6,15 +6,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import static com.studying.io.file.fileanalyzer.FileAnalyzer.FILE_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FileAnalyzerITest {
-    BasicFileAnalyzer fileAnalyzer = new BasicFileAnalyzer(FILE_NAME);
+public class FileAnalyzerIntegrationTest {
+    private static final String FILE_NAME = "src/test/resources/DuckBook.txt";
+    BasicFileAnalyzer fileAnalyzer = new BasicFileAnalyzer();
+
     public static void main(String[] args) throws IOException {
         writeDuckBook(FILE_NAME);
-        BasicFileAnalyzer fileAnalyzer = new BasicFileAnalyzer(FILE_NAME);
-        FileStatistics fileStatistics = fileAnalyzer.analyze("duck");
+        BasicFileAnalyzer fileAnalyzer = new BasicFileAnalyzer();
+        FileStatistics fileStatistics = fileAnalyzer.analyze(FILE_NAME,"duck");
 
         printSentencesWithWord(fileStatistics.getSentences());
         printWordCount(fileStatistics.getWordCount());
@@ -50,16 +51,14 @@ public class FileAnalyzerITest {
     }
 
     private static void printSentencesWithWord(List<String> filteredSentences) {
-        for (String sentence : filteredSentences) {
-            System.out.println(sentence);
-        }
+        filteredSentences.forEach(System.out :: println);
     }
 
     private static void printWordCount(int count) {
         System.out.println(count);
     }
 
-    static void writeDuckBook(String path) throws IOException {
+    private static void writeDuckBook(String path) throws IOException {
         String text = "What Is a Domestic Duck? " +
                 "Domestic duck is a duck that is cared for and/or raised by people. " +
                 "People raise ducks for many reasons, but the common ones are pets, eggs, meat, and show. " +
