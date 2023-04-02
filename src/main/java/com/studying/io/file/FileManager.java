@@ -3,7 +3,6 @@ package com.studying.io.file;
 import java.io.*;
 
 public class FileManager {
-    // принимает путь к папке, возвращает к-во папок в папке и во всех подпапках по пути
     public static int countDirs(String path) {
         File pathToDirectory = new File(path);
         checkPathToDirectory(pathToDirectory);
@@ -20,7 +19,7 @@ public class FileManager {
         return dirCounter;
     }
 
-    // принимает путь к папке, возвращает к-во файлов в папке и во всех подпапках по пути
+
     public static int countFiles(String path) {
         File pathToDirectory = new File(path);
         checkPathToDirectory(pathToDirectory);
@@ -38,23 +37,21 @@ public class FileManager {
         return fileCounter;
     }
 
-    // Метод по перемещеню папок и файлов
-    // Параметр from - путь к файлу или папке, to - куда будет производиться перемещение
-    public static void move(String from, String to) throws IOException {
+
+    public static void move(String from, String to) {
         File sourceFile = new File(from);
         if (!sourceFile.exists()) {
-            throw new NullPointerException("File not found.");
+            throw new IllegalStateException("Source file doesn't exist.");
         }
         sourceFile.renameTo(new File(to));
     }
 
-    // метод по копированию папок и файлов
-    // Параметр from - путь к файлу или папке, to - путь к папке, куда будет производиться копирование
+
     public static void copy(String from, String to) throws IOException {
         File sourceFile = new File(from);
         File targetFile = new File(to);
         if (!sourceFile.exists()) {
-            throw new NullPointerException("Source file doesn't exist.");
+            throw new IllegalStateException("Source file doesn't exist.");
         }
         if (sourceFile.isDirectory()) {
             copyDirectory(sourceFile, targetFile);
@@ -67,6 +64,7 @@ public class FileManager {
             copyFile(sourceFile, target);
         }
     }
+
 
     private static void copyDirectory(File from, File to) throws IOException {
         if (!to.exists() || !to.isDirectory()) {
@@ -87,6 +85,7 @@ public class FileManager {
         }
     }
 
+
     private static void copyFile(File fileToCopy, File to) throws IOException {
         int fileLength = (int) fileToCopy.length();
         byte[] content = new byte[fileLength];
@@ -99,7 +98,7 @@ public class FileManager {
 
     private static void checkPathToDirectory(File file) {
         if (!file.exists()) {
-            throw new NullPointerException("Directory not found");
+            throw new IllegalStateException("Directory not found");
         }
         if (!file.isDirectory()) {
             throw new IllegalArgumentException("File is not a directory");

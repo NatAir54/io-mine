@@ -10,18 +10,19 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FileManagerTest {
-    private static final String sourceFolderWithFilesAndFolders = "src/test/resources/fromWithFiles";
-    private static final String sourceFolderWithFilesOnly = "src/test/resources/fromConsistingOfFilesOnly";
-    private static final String emptySourceFolder = "src/test/resources/emptyFolderFrom";
-    private static final String sourceFile = "src/test/resources/fileFrom.txt";
-    private static final String existingEmptyDestFolder = "src/test/resources/existingFolderTo";
-    private static final String sourceFolderNonExist = "src/test/resources/fromNotExist";
-    private static final String destFolderNonExist = "src/test/resources/toNotExist";
+    private static final String SOURCE_FOLDER_WITH_FILES_AND_FOLDERS = "src/test/resources/fromWithFiles";
+    private static final String SOURCE_FOLDER_WITH_FILES_ONLY = "src/test/resources/sourceFolderWithFilesOnly";
+    private static final String EMPTY_SOURCE_FOLDER = "src/test/resources/emptySourceFolder";
+    private static final String SOURCE_FILE_WITH_CONTENT_TXT = "src/test/resources/sourceFileWithContent.txt";
+    private static final String EXISTING_EMPTY_DEST_FOLDER = "src/test/resources/existingEmptyDestFolder";
+    private static final String SOURCE_FOLDER_NON_EXIST = "src/test/resources/sourceFolderNonExist";
+    private static final String DEST_FOLDER_NON_EXIST = "src/test/resources/destFolderNonExist";
+    private static final String EXISTING_DEST_FILE_TXT = "src/test/resources/existingFileTo.txt";
 
 
     @BeforeEach
     public void init() throws IOException {
-        File pathFrom1 = new File(sourceFolderWithFilesAndFolders);
+        File pathFrom1 = new File(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS);
         pathFrom1.mkdir();
         File pathFile1 = new File(pathFrom1, "file1.txt");
         pathFile1.createNewFile();
@@ -37,32 +38,31 @@ public class FileManagerTest {
         File pathInnerFile2 = new File(pathInnerFolder2, "innerFile2.txt");
         pathInnerFile2.createNewFile();
 
-        File pathFrom2 = new File(emptySourceFolder);
+        File pathFrom2 = new File(EMPTY_SOURCE_FOLDER);
         pathFrom2.mkdir();
-        File pathFrom3 = new File(sourceFile);
+        File pathFrom3 = new File(SOURCE_FILE_WITH_CONTENT_TXT);
         pathFrom3.createNewFile();
-        try (FileOutputStream fileOutputStream = new FileOutputStream(pathFrom3)) {
+        try(FileOutputStream fileOutputStream = new FileOutputStream(pathFrom3)) {
             fileOutputStream.write("content".getBytes());
         }
 
-        File pathFrom4 = new File(sourceFolderWithFilesOnly);
+        File pathFrom4 = new File(SOURCE_FOLDER_WITH_FILES_ONLY);
         pathFrom4.mkdir();
         File pathFile3 = new File(pathFrom4, "file3.txt");
         pathFile3.createNewFile();
         File pathFile4 = new File(pathFrom4, "file4.txt");
         pathFile4.createNewFile();
 
-        File pathTo1 = new File(existingEmptyDestFolder);
+        File pathTo1 = new File(EXISTING_EMPTY_DEST_FOLDER);
         pathTo1.mkdir();
-        String existingFileTo = "src/test/resources/existingFileTo.txt";
-        File pathTo2 = new File(existingFileTo);
+        File pathTo2 = new File(EXISTING_DEST_FILE_TXT);
         pathTo2.createNewFile();
     }
 
     @DisplayName("test countDirs for a directory with files and folders")
     @Test
     void testCountDirsForDirectoryWithFilesAndFolders() {
-        assertEquals(2, FileManager.countDirs(sourceFolderWithFilesAndFolders));
+        assertEquals(2, FileManager.countDirs(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS));
     }
 
     @DisplayName("test countDirs for a directory with files and folders including inner folders")
@@ -74,21 +74,21 @@ public class FileManagerTest {
     @DisplayName("test countDirs for an empty directory")
     @Test
     void testCountDirsForEmptyDirectory() {
-        assertEquals(0, FileManager.countDirs(emptySourceFolder));
-        assertEquals(0, FileManager.countDirs(existingEmptyDestFolder));
+        assertEquals(0, FileManager.countDirs(EMPTY_SOURCE_FOLDER));
+        assertEquals(0, FileManager.countDirs(EXISTING_EMPTY_DEST_FOLDER));
     }
 
     @DisplayName("test countDirs for directory consisting of files only")
     @Test
     void testCountDirsForDirectoryConsistingOfFilesOnly() {
-        assertEquals(0, FileManager.countDirs(sourceFolderWithFilesOnly));
+        assertEquals(0, FileManager.countDirs(SOURCE_FOLDER_WITH_FILES_ONLY));
     }
 
-    @DisplayName("test countDirs throw NullPointer exception for non existing directory")
+    @DisplayName("test countDirs throw IllegalStateException for non existing directory")
     @Test
-    void testCountDirsThrowNullPointerExceptionForNonExistingDirectory() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            FileManager.countDirs(sourceFolderNonExist);
+    void testCountDirsThrowIllegalStateExceptionForNonExistingDirectory() {
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            FileManager.countDirs(SOURCE_FOLDER_NON_EXIST);
         });
     }
 
@@ -96,7 +96,7 @@ public class FileManagerTest {
     @Test
     void testCountDirsThrowIllegalArgumentExceptionIfFileIsNotDirectory() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            FileManager.countDirs(sourceFile);
+            FileManager.countDirs(SOURCE_FILE_WITH_CONTENT_TXT);
         });
     }
 
@@ -104,7 +104,7 @@ public class FileManagerTest {
     @DisplayName("test countFiles for a directory with files and folders")
     @Test
     void testCountFilesForDirectoryWithFilesAndFolders() {
-        assertEquals(4, FileManager.countFiles(sourceFolderWithFilesAndFolders));
+        assertEquals(4, FileManager.countFiles(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS));
     }
 
     @DisplayName("test countFiles for a directory with files and folders including inner folders")
@@ -116,21 +116,21 @@ public class FileManagerTest {
     @DisplayName("test countFiles for a directory consisting of files only")
     @Test
     void testCountFilesForDirectoryConsistingOfFilesOnly() {
-        assertEquals(2, FileManager.countFiles(sourceFolderWithFilesOnly));
+        assertEquals(2, FileManager.countFiles(SOURCE_FOLDER_WITH_FILES_ONLY));
     }
 
     @DisplayName("test countFiles for an empty directory")
     @Test
     void testCountFilesForEmptyDirectory() {
-        assertEquals(0, FileManager.countFiles(emptySourceFolder));
-        assertEquals(0, FileManager.countFiles(existingEmptyDestFolder));
+        assertEquals(0, FileManager.countFiles(EMPTY_SOURCE_FOLDER));
+        assertEquals(0, FileManager.countFiles(EXISTING_EMPTY_DEST_FOLDER));
     }
 
-    @DisplayName("test countFiles throw NullPointer exception for non existing directory")
+    @DisplayName("test countFiles throw IllegalStateException for non existing directory")
     @Test
-    void testCountFilesThrowNullPointerExceptionForNonExistingDirectory() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            FileManager.countFiles(destFolderNonExist);
+    void testCountFilesThrowIllegalStateExceptionForNonExistingDirectory() {
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            FileManager.countFiles(DEST_FOLDER_NON_EXIST);
         });
     }
 
@@ -138,32 +138,31 @@ public class FileManagerTest {
     @Test
     void testCountFilesThrowIllegalArgumentExceptionIfFileIsNotDirectory() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            FileManager.countFiles(sourceFile);
+            FileManager.countFiles(SOURCE_FILE_WITH_CONTENT_TXT);
         });
     }
-
 
 
     @DisplayName("test copy for a directory with files and folders")
     @Test
     void testCopyForDirectoryWithFilesAndFolders() throws IOException {
-        FileManager.copy(sourceFolderWithFilesAndFolders, existingEmptyDestFolder);
-        assertTrue(compareDirectories(new File(sourceFolderWithFilesAndFolders), new File(existingEmptyDestFolder)));
+        FileManager.copy(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS, EXISTING_EMPTY_DEST_FOLDER);
+        assertTrue(compareDirectories(new File(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS), new File(EXISTING_EMPTY_DEST_FOLDER)));
     }
 
     @DisplayName("test copy for a directory with files only")
     @Test
     void testCopyForDirectoryWithFilesOnly() throws IOException {
-        FileManager.copy(sourceFolderWithFilesOnly, existingEmptyDestFolder);
-        assertTrue(compareDirectories(new File(sourceFolderWithFilesOnly), new File(existingEmptyDestFolder)));
+        FileManager.copy(SOURCE_FOLDER_WITH_FILES_ONLY, EXISTING_EMPTY_DEST_FOLDER);
+        assertTrue(compareDirectories(new File(SOURCE_FOLDER_WITH_FILES_ONLY), new File(EXISTING_EMPTY_DEST_FOLDER)));
     }
 
     @DisplayName("test copy for one file only, with content")
     @Test
     void testCopyForOneFileOnlyWithContent() throws IOException {
-        FileManager.copy(sourceFile, existingEmptyDestFolder);
-        File file = new File(sourceFile);
-        File folder = new File(existingEmptyDestFolder);
+        FileManager.copy(SOURCE_FILE_WITH_CONTENT_TXT, EXISTING_EMPTY_DEST_FOLDER);
+        File file = new File(SOURCE_FILE_WITH_CONTENT_TXT);
+        File folder = new File(EXISTING_EMPTY_DEST_FOLDER);
         File[] files = folder.listFiles();
         assertEquals(1, files.length);
         assertTrue(compareFilesByNameAndLength(files[0], file));
@@ -172,54 +171,53 @@ public class FileManagerTest {
     @DisplayName("test copy for an empty source directory")
     @Test
     void testCopyForEmptySourceDirectory() throws IOException {
-        FileManager.copy(emptySourceFolder, existingEmptyDestFolder);
-        assertTrue(compareDirectories(new File(emptySourceFolder), new File(existingEmptyDestFolder)));
+        FileManager.copy(EMPTY_SOURCE_FOLDER, EXISTING_EMPTY_DEST_FOLDER);
+        assertTrue(compareDirectories(new File(EMPTY_SOURCE_FOLDER), new File(EXISTING_EMPTY_DEST_FOLDER)));
     }
 
-    @DisplayName("test copy throw NullPointerException if file does not exist")
+    @DisplayName("test copy throw IllegalStateException if file does not exist")
     @Test
-    void testCopyThrowNullPointerExceptionIfSourceFileDoesNotExist() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            FileManager.copy(sourceFolderNonExist, existingEmptyDestFolder);
+    void testCopyThrowIllegalStateExceptionIfSourceFileDoesNotExist() {
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            FileManager.copy(SOURCE_FOLDER_NON_EXIST, EXISTING_EMPTY_DEST_FOLDER);
         });
     }
 
 
-    @DisplayName("test move throw NullPointerException if source file does not exist")
+    @DisplayName("test move throw IllegalStateException if source file does not exist")
     @Test
-    void testMoveThrowNullPointerExceptionIfSourceFileDoesNotExist() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            FileManager.move(sourceFolderNonExist, existingEmptyDestFolder);
+    void testMoveThrowIllegalStateExceptionIfSourceFileDoesNotExist() {
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            FileManager.move(SOURCE_FOLDER_NON_EXIST, EXISTING_EMPTY_DEST_FOLDER);
         });
     }
 
     @DisplayName("test move for empty directory")
     @Test
     void testMoveEmptyDirectoryToNonExistingDirectory() throws IOException {
-        FileManager.move(emptySourceFolder, destFolderNonExist);
-        assertFalse(new File(emptySourceFolder).exists());
-        assertTrue(new File(destFolderNonExist).exists());
-        assertTrue(new File(destFolderNonExist).listFiles().length == 0);
+        FileManager.move(EMPTY_SOURCE_FOLDER, DEST_FOLDER_NON_EXIST);
+        assertFalse(new File(EMPTY_SOURCE_FOLDER).exists());
+        assertTrue(new File(DEST_FOLDER_NON_EXIST).exists());
+        assertTrue(new File(DEST_FOLDER_NON_EXIST).listFiles().length == 0);
     }
 
     @DisplayName("test move for a directory with files and folders")
     @Test
     void testMoveForDirectoryWithFilesAndFolders() throws IOException {
-        FileManager.copy(sourceFolderWithFilesAndFolders, existingEmptyDestFolder);
-        FileManager.move(sourceFolderWithFilesAndFolders, destFolderNonExist);
-        assertFalse(new File(sourceFolderWithFilesAndFolders).exists());
-        assertTrue(compareDirectories(new File(destFolderNonExist), new File(existingEmptyDestFolder)));
+        FileManager.copy(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS, EXISTING_EMPTY_DEST_FOLDER);
+        FileManager.move(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS, DEST_FOLDER_NON_EXIST);
+        assertFalse(new File(SOURCE_FOLDER_WITH_FILES_AND_FOLDERS).exists());
+        assertTrue(compareDirectories(new File(DEST_FOLDER_NON_EXIST), new File(EXISTING_EMPTY_DEST_FOLDER)));
     }
 
     @DisplayName("test move for a directory with files only")
     @Test
     void testMoveForDirectoryWithFilesOnly() throws IOException {
-        FileManager.copy(sourceFolderWithFilesOnly, existingEmptyDestFolder);
-        FileManager.move(sourceFolderWithFilesOnly, destFolderNonExist);
-        assertFalse(new File(sourceFolderWithFilesOnly).exists());
-        assertTrue(compareDirectories(new File(destFolderNonExist), new File(existingEmptyDestFolder)));
+        FileManager.copy(SOURCE_FOLDER_WITH_FILES_ONLY, EXISTING_EMPTY_DEST_FOLDER);
+        FileManager.move(SOURCE_FOLDER_WITH_FILES_ONLY, DEST_FOLDER_NON_EXIST);
+        assertFalse(new File(SOURCE_FOLDER_WITH_FILES_ONLY).exists());
+        assertTrue(compareDirectories(new File(DEST_FOLDER_NON_EXIST), new File(EXISTING_EMPTY_DEST_FOLDER)));
     }
-
 
     @AfterEach
     void deleteFiles() {
