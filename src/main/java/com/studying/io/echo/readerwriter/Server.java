@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Serverrw {
+public class Server {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(3000);
              Socket socket = server.accept();

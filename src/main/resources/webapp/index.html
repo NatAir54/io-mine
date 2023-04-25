@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css\styles.css">
+    <title>Happy coder</title>
+</head>
+<body>
+    <h1>Hello!</h1>
+    <h2>I'm Natalie and welcome to my site :)</h2>
+    <br/>
+    <p>
+        It's going to be about coding, that should be obvious!<br/>One I hope you will enjoy or at least be amused by and
+        happy coding!
+    </p>
+    <button>Start</button>
+    <img src="https://www.thewomenachiever.com/wp-content/uploads/2022/03/programming-language-for-women.jpg"
+     alt="Woman coding"/>
+    <script>
+        let firstName = prompt("What is your first name?");
+        let lastName = prompt("What is your last name?");
+        let fullName = `${firstName} ${lastName}`;
+        alert(`Hello ${fullName}!`);
+
+        let contactButton = document.querySelector("button");
+        contactButton.addEventListener("click", contactMe);
+
+        function contactMe() {
+            let email = prompt("What is your email address?");
+            let h2 = document.querySelector("h2");
+            h2.innerHTML = `Thank you ${fullName}, we'll be in touch by email!`;
+        }
+
+    </script>
+</body>
+</html>
