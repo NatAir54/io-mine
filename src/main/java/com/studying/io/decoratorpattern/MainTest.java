@@ -13,3 +13,4 @@ class ApplicationContext {
         return new LogInfoUserDao(transactionalUserDao );
     }
 }
+

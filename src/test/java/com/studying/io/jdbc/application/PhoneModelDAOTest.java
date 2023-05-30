@@ -2,6 +2,7 @@ package com.studying.io.jdbc.application;
 
 import com.studying.io.jdbc.application.model.PhoneModel;
 import com.sun.istack.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class PhoneModelDAOTest {
         model.setName("test");
         try {
             String user = "postgres";
-            String password = "1";
+            String password = "postgrsql098";
             String url = "jdbc:postgresql://localhost:5432/phones_magazine";
             connection = DriverManager.getConnection(url, user, password);
             dao = new PhoneModelDAO(connection);
@@ -95,7 +96,7 @@ public class PhoneModelDAOTest {
         assertThat(dao.read("updated").getName(), is("updated"));
     }
 
-    
+
     @Test
     public void whenTryUpdatePhoneModelWhichNotExistThenReturnFalse() {
         final boolean result = dao.update(new PhoneModel(Integer.MAX_VALUE, "xxx"));

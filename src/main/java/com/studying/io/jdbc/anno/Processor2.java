@@ -9,9 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 // creating table using annotations
-public class Processor {
+public class Processor2 {
     private static Connection connection;
     private static Statement statement;
+    private static final String user = "postgres";
+    private static final String password = "postgrsql098";
+    private static final String url = "jdbc:postgresql://localhost:5432/main";
 
     public static void main(String[] args) {
         try {
@@ -69,9 +72,8 @@ public class Processor {
 
     public static void connect() throws SQLException {
         try {
-            Class.forName("org.sqlite.JDBC");
-            // Class.forName("org.postgresql.Driver"); if postgresql
-            connection = DriverManager.getConnection("jdbc:sqlite:main3.db");
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
 
         } catch (ClassNotFoundException | SQLException e) {

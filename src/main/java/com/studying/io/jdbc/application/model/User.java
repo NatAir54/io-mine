@@ -6,9 +6,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+
     private int id;
+
     private String login;
+
     private String password;
+
     private Role role;
 
     @Override
@@ -31,7 +35,9 @@ public class User {
     @Data
     @AllArgsConstructor
     public static class Role {
+
         private int id;
+
         private String name;
 
         @Override
@@ -48,6 +54,5 @@ public class User {
             result = 31 * result + name.hashCode();
             return result;
         }
-
     }
 }

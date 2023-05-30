@@ -12,31 +12,16 @@ public class PhoneModelDAO implements DAO<PhoneModel, String> {
     @NotNull
     private final Connection connection;
 
-    /**
-     * Init database connection.
-     *
-     * @param connection of database.
-     */
+
     public PhoneModelDAO(@NotNull final Connection connection) {
         this.connection = connection;
     }
 
-    /**
-     * Check exist PhoneModel by name.
-     *
-     * @param name for select.
-     * @return true if exist. False if does not exist.
-     */
+
     private boolean isExist(@NotNull final String name) {
         return read(name).getId() != -1;
     }
 
-    /**
-     * Select PhoneModel by name.
-     *
-     * @param name for select.
-     * @return return valid entity if she exist. If entity does not exist return empty PhoneModel with id = -1.
-     */
     @Override
     public PhoneModel read(@NotNull final String name) {
 

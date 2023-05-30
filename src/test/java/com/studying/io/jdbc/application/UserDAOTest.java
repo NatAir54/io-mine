@@ -27,7 +27,7 @@ public class UserDAOTest {
     public void before() {
         try {
             String user = "postgres";
-            String password = "1";
+            String password = "postgrsql098";
             String url = "jdbc:postgresql://localhost:5432/phones_magazine";
             connection = DriverManager.getConnection(url, user, password);
             dao = new UserDAO(connection);

@@ -14,13 +14,15 @@ public class Server {
             while (true) {
                 String messageFromClient = br.readLine();
                 System.out.println(messageFromClient);
-                if (messageFromClient.equals("")) {
+                if ("".equals(messageFromClient)) {
                     break;
                 }
 //                bw.write("ECHO " + messageFromClient);
 //                bw.newLine();
 //                bw.flush();
             }
+
+            System.out.println("-----------------------------------");
             System.out.println("Request obtained");
 
             bw.write("HTTP/1.1 200 OK");
